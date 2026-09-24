@@ -2,206 +2,246 @@
 
 ## 📌 Project Overview
 
-**Restaurant Rating Prediction** is a Machine Learning project that predicts the **aggregate rating of a restaurant** based on different restaurant-related features.
+**Restaurant Rating Prediction** is a Machine Learning project that predicts restaurant **Aggregate Ratings** using restaurant-related features.
 
-The project uses restaurant data to perform data preprocessing, exploratory data analysis, feature encoding, model training, and evaluation.
+The project uses a **Decision Tree Regressor** to learn patterns from restaurant data and predict ratings. The workflow includes data loading, missing-value handling, categorical encoding, train-test splitting, model training, prediction, evaluation, and feature-importance analysis.
 
-The main objective is to understand which restaurant features can be used to predict restaurant ratings using Machine Learning.
+The project is implemented in Python using **Pandas, Matplotlib, Scikit-learn, and Joblib**.
 
 ---
 
 ## 🎯 Problem Statement
 
-Restaurant ratings are influenced by several factors such as restaurant location, cuisine, price range, online ordering, table booking, and customer votes.
+Restaurant ratings can be influenced by different factors such as location, cuisine, price range, online ordering, table booking, and customer votes.
 
-The objective of this project is to build a Machine Learning model that can learn from existing restaurant data and predict the expected rating of a restaurant.
+The objective of this project is to build a Machine Learning regression model that learns from existing restaurant data and predicts the **Aggregate Rating** of restaurants.
 
 ---
 
 ## 🚀 Objectives
 
-* Clean and preprocess the restaurant dataset
+* Load and inspect the restaurant dataset
 * Handle missing values
-* Perform Exploratory Data Analysis (EDA)
-* Analyze relationships between restaurant features and ratings
-* Encode categorical variables
-* Split the dataset into training and testing sets
-* Train Machine Learning regression models
-* Evaluate model performance
-* Identify important features affecting restaurant ratings
-* Generate predictions for restaurant ratings
+* Identify categorical features
+* Convert categorical data into numerical values
+* Separate input features and target variable
+* Split the dataset into training and testing data
+* Train a Decision Tree Regression model
+* Predict restaurant ratings
+* Evaluate the model using MSE and R² Score
+* Analyze feature importance
+* Generate a feature-importance visualization
+* Save the trained Machine Learning model
 
 ---
 
 ## 📊 Dataset
 
-The project uses a restaurant dataset containing information such as:
+The project uses a restaurant dataset containing information about restaurants and their ratings.
+
+Some relevant attributes include:
 
 * Restaurant Name
 * Location
-* Restaurant Type
 * Cuisines
-* Average Cost for Two
-* Table Booking
-* Online Ordering
-* Votes
+* Restaurant Type
 * Price Range
+* Online Ordering
+* Table Booking
+* Votes
 * Aggregate Rating
 
 ### Target Variable
 
 **Aggregate Rating**
 
-The target variable represents the restaurant's overall rating.
+The `Aggregate rating` column is used as the target variable that the Machine Learning model attempts to predict.
+
+The dataset used by the program is located at:
+
+```text
+dataset/Dataset.csv
+```
 
 ---
 
 ## 🧹 Data Preprocessing
 
-The following preprocessing steps are performed:
+The following preprocessing steps are performed in `main.py`:
 
-1. Load the restaurant dataset using Pandas.
-2. Inspect the dataset for missing values.
-3. Handle missing values appropriately.
-4. Remove unnecessary columns.
-5. Convert categorical features into numerical representations.
-6. Select relevant features for Machine Learning.
-7. Separate input features and target variable.
-8. Split the dataset into training and testing sets.
+1. Load the dataset using Pandas.
+2. Create a copy of the original dataset.
+3. Handle missing values in the `Cuisines` column by replacing them with `"Unknown"`.
+4. Identify categorical columns.
+5. Encode categorical variables using `LabelEncoder`.
+6. Separate the features (`X`) and target (`y`).
+7. Split the data into training and testing sets.
 
----
+The dataset is divided using:
 
-## 🔍 Exploratory Data Analysis
+```text
+80% Training Data
+20% Testing Data
+```
 
-EDA is performed to understand the dataset and identify useful patterns.
-
-The analysis includes:
-
-* Rating distribution
-* Restaurant distribution
-* Price range analysis
-* Votes vs. rating analysis
-* Cuisine analysis
-* Correlation analysis
-* Feature importance analysis
-
-Visualizations are created using Matplotlib and Seaborn where applicable.
+A `random_state` of `42` is used to make the train-test split reproducible.
 
 ---
 
-## 🤖 Machine Learning
+## 🤖 Machine Learning Model
 
-This project treats restaurant rating prediction as a **regression problem**.
+### Decision Tree Regressor
 
-### Models Used
+This project uses the **Decision Tree Regressor** from Scikit-learn.
 
-Depending on the implementation, the project can use:
+```python
+DecisionTreeRegressor(random_state=42)
+```
 
-* Linear Regression
-* Decision Tree Regressor
-* Random Forest Regressor
+The model is trained using the training dataset and then used to predict restaurant ratings for the test dataset.
 
-The trained models are evaluated on the test dataset.
+### Why Decision Tree Regression?
+
+A Decision Tree Regressor can learn relationships between input features and a numerical target value. Since **Aggregate Rating** is a numerical value, regression is appropriate for this prediction task.
 
 ---
 
 ## 📈 Model Evaluation
 
-The model performance can be evaluated using regression metrics such as:
+The trained model is evaluated using two regression metrics.
 
-* Mean Squared Error (MSE)
-* Mean Absolute Error (MAE)
-* Root Mean Squared Error (RMSE)
-* R² Score
+### Mean Squared Error (MSE)
 
-These metrics help measure how accurately the model predicts restaurant ratings.
+MSE measures the average squared difference between the actual ratings and the predicted ratings.
 
-> **Note:** The exact metric values should be updated here after running the final model.
+A lower MSE indicates smaller prediction errors.
 
-### Example
+### R² Score
+
+R² Score measures how well the model explains the variation in the target variable.
+
+The actual MSE and R² values are displayed when `main.py` is executed.
+
+Example output:
 
 ```text
-Model: Random Forest Regressor
+Mean Squared Error:
+<value generated when the program runs>
 
-MAE  : [add result]
-RMSE : [add result]
-R²   : [add result]
+R2 Score:
+<value generated when the program runs>
 ```
 
----
-
-## 💡 Key Insights
-
-The analysis helps identify relationships between restaurant characteristics and ratings.
-
-Some factors that can be investigated include:
-
-* Number of customer votes
-* Price range
-* Restaurant type
-* Cuisine
-* Location
-* Online ordering availability
-* Table booking availability
-
-The final insights should be updated according to the actual results obtained from the dataset.
+The values are intentionally not hard-coded in this README because they depend on the actual execution of the model.
 
 ---
 
-## 🛠️ Technologies Used
+## 🔍 Feature Importance
 
-| Technology                      | Purpose                   |
-| ------------------------------- | ------------------------- |
-| Python                          | Programming language      |
-| Pandas                          | Data manipulation         |
-| NumPy                           | Numerical operations      |
-| Matplotlib                      | Data visualization        |
-| Seaborn                         | Statistical visualization |
-| Scikit-learn                    | Machine Learning          |
-| Jupyter Notebook / Google Colab | Development environment   |
-| Git & GitHub                    | Version control           |
+The Decision Tree model provides feature-importance values that indicate the relative contribution of each feature to the model's predictions.
+
+The program:
+
+1. Calculates feature importance.
+2. Sorts the features by importance.
+3. Selects the top 10 features.
+4. Creates a horizontal bar chart.
+5. Saves the chart as:
+
+```text
+feature_importance.png
+```
+
+### Feature Importance Visualization
+
+The generated visualization is included in this repository:
+
+```text
+feature_importance.png
+```
+
+This visualization helps identify which restaurant-related features had the greatest influence on the trained Decision Tree model.
 
 ---
 
 ## 📁 Project Structure
 
+The current repository structure is:
+
 ```text
-Restaurant-Rating-Prediction/
+Predict-Restaurant-Ratings/
 │
-├── data/
-│   └── restaurant_dataset.csv
+├── dataset/
+│   └── Dataset.csv
 │
-├── notebooks/
-│   └── Restaurant_Rating_Prediction.ipynb
-│
-├── outputs/
-│   ├── plots/
-│   └── results/
-│
+├── .gitignore
 ├── README.md
-├── requirements.txt
-└── .gitignore
+├── feature_importance.png
+├── main.py
+└── requirements.txt
 ```
 
-> Update the folder names above if your actual GitHub project has a different structure.
+### File Description
+
+| File / Folder            | Description                                                   |
+| ------------------------ | ------------------------------------------------------------- |
+| `dataset/`               | Contains the restaurant dataset                               |
+| `Dataset.csv`            | Input dataset used by the Machine Learning program            |
+| `main.py`                | Main Python program for training and evaluating the model     |
+| `feature_importance.png` | Generated feature-importance visualization                    |
+| `requirements.txt`       | Python libraries required to run the project                  |
+| `.gitignore`             | Specifies files and folders that should not be tracked by Git |
+| `README.md`              | Project documentation                                         |
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology   | Purpose                                   |
+| ------------ | ----------------------------------------- |
+| Python       | Programming language                      |
+| Pandas       | Data loading and data processing          |
+| Matplotlib   | Data visualization                        |
+| Scikit-learn | Machine Learning and evaluation           |
+| Joblib       | Saving the trained Machine Learning model |
+| Git          | Version control                           |
+| GitHub       | Source-code hosting                       |
+
+---
+
+## 📦 Required Libraries
+
+The project uses the libraries listed in `requirements.txt`.
+
+The main libraries used in the Python program are:
+
+```text
+pandas
+numpy
+matplotlib
+scikit-learn
+joblib
+```
+
+> Note: `numpy` is currently imported in the Python file but is not directly used in the calculations.
 
 ---
 
 ## ⚙️ Installation
 
-Clone the repository:
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Padmavati2611/Restaurant-Rating-Prediction.git
+git clone https://github.com/Padmavati2611/Predict-Restaurant-Ratings.git
 ```
 
-Navigate to the project folder:
+### 2. Open the project folder
 
 ```bash
-cd Restaurant-Rating-Prediction
+cd Predict-Restaurant-Ratings
 ```
 
-Install the required libraries:
+### 3. Install the required libraries
 
 ```bash
 pip install -r requirements.txt
@@ -209,94 +249,150 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ How to Run
+## ▶️ How to Run the Project
 
-### Using Jupyter Notebook
+Make sure the terminal is opened inside the project folder.
+
+Run:
 
 ```bash
-jupyter notebook
+python main.py
 ```
 
-Open the restaurant rating prediction notebook and run the cells sequentially.
+If your system uses the Python launcher on Windows, you can also use:
 
-### Using Google Colab
+```bash
+py main.py
+```
 
-The notebook can also be uploaded to Google Colab and executed there.
+The program will:
+
+1. Load the dataset.
+2. Display the first few records.
+3. Check missing values.
+4. Encode categorical columns.
+5. Split the data into training and testing sets.
+6. Train the Decision Tree Regressor.
+7. Generate predictions.
+8. Calculate MSE.
+9. Calculate R² Score.
+10. Display feature importance.
+11. Generate the feature-importance graph.
+12. Save the trained model.
 
 ---
 
-## 📌 Project Workflow
+## 🔄 Project Workflow
 
 ```text
 Restaurant Dataset
         ↓
-Data Cleaning
+Load Dataset
         ↓
-Data Preprocessing
+Handle Missing Values
         ↓
-Exploratory Data Analysis
+Encode Categorical Variables
         ↓
-Feature Engineering
+Separate Features and Target
         ↓
-Train/Test Split
+Train-Test Split
+        ↓
+Decision Tree Regressor
         ↓
 Model Training
         ↓
-Model Evaluation
+Prediction
         ↓
-Rating Prediction
+MSE + R² Evaluation
+        ↓
+Feature Importance Analysis
+        ↓
+Feature Importance Graph
+        ↓
+Save Trained Model
 ```
 
 ---
 
-## 📷 Results
+## 💾 Model Output
 
-Add screenshots of:
+The Python program saves the trained Machine Learning model using Joblib.
 
-* Dataset
-* Data cleaning
-* EDA visualizations
-* Model training
-* Model evaluation
-* Prediction output
-
-Example:
+The generated model file is:
 
 ```text
-screenshots/
-├── dataset.png
-├── rating_distribution.png
-├── correlation.png
-├── model_results.png
-└── prediction.png
+restaurant_rating_model.pkl
 ```
+
+This file is created when the program is successfully executed.
+
+The saved model can be used later for prediction without retraining the model, provided that the same preprocessing approach is applied to new input data.
+
+---
+
+## 📷 Project Result
+
+The project generates a feature-importance visualization:
+
+```text
+feature_importance.png
+```
+
+The graph displays the top 10 features according to the Decision Tree model's calculated feature-importance values.
+
+The numerical model results, including **MSE** and **R² Score**, are printed in the terminal when the program is executed.
+
+---
+
+## 💡 Key Outcomes
+
+Through this project, the Machine Learning workflow for a regression problem was implemented from dataset loading to model evaluation.
+
+The project demonstrates:
+
+* Data preprocessing
+* Missing-value handling
+* Categorical encoding
+* Train-test splitting
+* Decision Tree Regression
+* Prediction
+* Regression evaluation
+* Feature-importance analysis
+* Data visualization
+* Model serialization using Joblib
 
 ---
 
 ## 🎓 Learning Outcomes
 
-Through this project, I learned:
+This project helped develop practical experience with:
 
-* Data cleaning and preprocessing
-* Exploratory Data Analysis
-* Categorical feature encoding
-* Regression Machine Learning
+* Python programming
+* Pandas data processing
+* Machine Learning preprocessing
+* Categorical data encoding
+* Regression algorithms
+* Decision Tree models
 * Model evaluation
-* Feature importance analysis
-* Python-based data analysis
-* Git and GitHub project management
+* Feature importance
+* Matplotlib visualization
+* Saving Machine Learning models
+* Git and GitHub
 
 ---
 
 ## 🔮 Future Improvements
 
-* Develop an interactive web application
-* Deploy the trained model online
-* Add more Machine Learning algorithms
-* Perform hyperparameter tuning
-* Improve feature engineering
-* Add real-time restaurant rating prediction
-* Create an interactive dashboard
+Possible improvements for the project include:
+
+* Use a more robust preprocessing pipeline for categorical variables.
+* Compare Decision Tree Regression with other regression algorithms.
+* Perform hyperparameter tuning.
+* Add additional evaluation metrics such as MAE and RMSE.
+* Build an interactive prediction interface.
+* Deploy the trained model as a web application.
+* Improve feature engineering.
+* Add prediction for new restaurant records.
 
 ---
 
@@ -311,6 +407,8 @@ https://github.com/Padmavati2611
 
 ---
 
+## 📌 Project Purpose
 
+This project was developed for educational and practical Machine Learning learning purposes.
 
-This project is created for educational and learning purposes.
+It demonstrates the complete basic workflow of building a regression model for predicting restaurant ratings using Python and Scikit-learn.
